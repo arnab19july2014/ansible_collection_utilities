@@ -6,12 +6,12 @@ module.exports = {
     {
       preset: "angular",
     },
-    [
-      "@semantic-release/exec",
-      {
-        prepare:
-          "echo ${nextRelease.version} ${branch.name} ${commits.length} ${Date.now()} > version.txt",
-      },
-    ],
+    // [
+    //   "@semantic-release/exec",
+    //   {
+    //     prepare:
+    //       "echo ${nextRelease.version} ${branch.name} ${commits.length} ${Date.now()} > version.txt",
+    //   },
+    // ],
   ],
 };
