@@ -27,6 +27,8 @@
         url: "{{ rv_nodejs_download_url }}"
         dest: "{{ rv_nodejs_tarball_download_path }}"
         mode: "0700"
+        timeout: 300
+      timeout: 300
   rescue:
     - name: NodeJS | New Download | Fail | Cleanup
       ansible.builtin.file:
