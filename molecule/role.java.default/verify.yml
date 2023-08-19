@@ -106,6 +106,21 @@
         success_msg: Apache Groovy Version {{ java_rv_jdk_groovy_version }} is installed
         fail_msg: Apache Groovy Version {{ java_rv_jdk_groovy_version }} is not installed, Shell result {{ java_rv_jdk_groovy_tmp_version_shell_result.stdout }}
 
+    - name: Oracle JDK | Kotlin | Kotlin Compiler | Molecule | Get Dynamic Version
+      when: java_rv_jdk_kotlinc_version is not defined
+      block:
+        - name: Oracle JDK | Kotlin | Kotlin Compiler | Molecule | Get Latest Release from github
+          ansible.builtin.uri:
+            url: "https://api.github.com/repos/JetBrains/kotlin/releases/latest"
+            return_content: true
+            headers:
+              Accept: "application/vnd.github.v3+json"
+          register: java_rv_kotlinc_latest_release_from_github
+
+        - name: Oracle JDK | Kotlin | Kotlin Compiler | Molecule | Set Dynamic Version
+          ansible.builtin.set_fact:
+            java_rv_jdk_kotlinc_version: "{{ java_rv_kotlinc_latest_release_from_github.json.tag_name[1:] }}"
+
     - name: Oracle JDK | Kotlin | Kotlin Compiler | Molecule | Verify | Get Kotlin | Kotlin Compiler version from shell
       ansible.builtin.command: kotlinc -version
       environment:
