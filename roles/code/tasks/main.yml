@@ -49,22 +49,25 @@
         url: "{{ rv_code_download_url_map[ansible_facts.architecture] }}"
         dest: "{{ rv_code_tarball_download_path }}"
         mode: "0700"
+
+    - name: Visual Studio Code | Install | Unarchive the tarball
+      ansible.builtin.unarchive:
+        src: "{{ rv_code_tarball_download_path }}"
+        dest: "{{ rv_code_install_path }}"
+        extra_opts: [--strip-components=1]
+        remote_src: true
   rescue:
     - name: Visual Studio Code | Install | Download tarball | Remove tarball
       ansible.builtin.file:
-        path: "{{ rv_code_tarball_download_path }}"
+        path: "{{ item }}"
         state: absent
+      with_items:
+        - "{{ rv_code_tarball_download_path }}"
+        - "{{ rv_code_install_path }}"
 
     - name: Visual Studio Code | Install | Download tarball | Fail
       ansible.builtin.fail:
         msg: "Failed to download Visual Studio Code tarball"
-
-- name: Visual Studio Code | Install | Unarchive the tarball
-  ansible.builtin.unarchive:
-    src: "{{ rv_code_tarball_download_path }}"
-    dest: "{{ rv_code_install_path }}"
-    extra_opts: [--strip-components=1]
-    remote_src: true
 
 - name: Visual Studio Code | Install | Create symlink to bin
   ansible.builtin.file:
