@@ -14,7 +14,7 @@
         - name: Terrafrom | Molecule | Get Terraform Release from Github API
           ansible.builtin.uri:
             url: "https://api.github.com/repos/hashicorp/terraform/releases/latest"
-            return_content: yes
+            return_content: true
             status_code: 200
           register: rv_terraform_release_from_github
 

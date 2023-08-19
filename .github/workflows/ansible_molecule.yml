@@ -27,7 +27,9 @@ jobs:
           if [ -f requirements.yml ]; then ansible-galaxy install -r requirements.yml; fi
 
       - name: ansible lint
-        run: ansible-lint
+        run: |+
+          ansible-lint
+          yamllint .
 
   molecule_test_role_linux_patching:
     runs-on: ubuntu-latest
