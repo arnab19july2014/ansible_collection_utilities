@@ -50,9 +50,10 @@ options:
   java_rv_jdk_kotlin_version:
     description:
       - Release version of Kotlin from github
+      - Default Get latest release name from [github](https://api.github.com/repos/JetBrains/kotlin/releases/latest)
+      - Example format `1.5.31`
     required: false
     type: str
-    default: 1.9.0
 ```
 
 ## Example Playbook Oracle Java
