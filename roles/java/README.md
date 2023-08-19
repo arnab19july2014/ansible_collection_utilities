@@ -37,7 +37,8 @@ options:
     description: Release version of Gradle from https://gradle.org/releases/.
     required: false
     type: str
-    default: 8.2
+    default: Get latest release name from [github](https://api.github.com/repos/gradle/gradle/releases/latest)
+    example: 7.3.3
   java_rv_jdk_groovy_version:
     description: Release version of Groovy from https://groovy.apache.org/download.html.
     required: false
